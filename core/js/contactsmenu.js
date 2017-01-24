@@ -26,7 +26,13 @@
 	'use strict';
 
 	var LOADING_TEMPLATE = '<div class="icon-loading"></div>';
-	var CONTACT_TEMPLATE = '<span class="avatar"></span> {{contact.displayName}}';
+	var CONTACT_TEMPLATE = '<div class="avatar"></div>'
+		+ '<div class="body">'
+		+ '    <div>{{contact.displayName}}</div>'
+		+ '    <div class="last-message">{{contact.lastMessage}}</div>'
+		+ '</div>'
+		+ '<span class="top-action icon-mail"></span>'
+		+ '<span class="other-actions icon-more"></span>';
 
 	/**
 	 * @class Contact

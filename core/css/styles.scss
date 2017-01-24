@@ -1100,19 +1100,57 @@ span.ui-icon {
 #contactsmenu-menu {
 	top: 38px;
 	right: -16px;
-	min-width: 350px;
+	width: 350px;
 
 	div.icon-loading {
 		height: 200px;
 	}
 
 	div.contact {
+		display: flex;
+		align-items: center;
 		padding: 10px;
+		border-bottom: 1px solid #eeeeee;
+
+		:last-of-type {
+			border-bottom: none;
+		}
+
+		.avatar {
+			display: inline-block;
+		}
+
+		.body {
+			flex-grow: 1;
+			padding-left: 8px;
+
+			div {
+				position: relative;
+				width: 100%;
+			}
+
+			div.last-message {
+				/* TODO: don't use fixed width */
+				width: 220px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				opacity: 0.5;
+			}
+		}
+
+		.top-action, .other-actions {
+			width: 16px;
+			height: 16px;
+			padding: 8px;
+			opacity: 0.5;
+
+			:hover {
+				opacity: 1;
+			}
+		}
 	}
 
-	span.avatar {
-		display: inline-block;
-	}
 }
 
 /* ---- TOOLTIPS ---- */
