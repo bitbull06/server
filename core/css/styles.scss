@@ -1090,6 +1090,31 @@ span.ui-icon {
 	height: 16px;
 }
 
+/* ---- CONTACTS MENU ---- */
+
+#contactsmenu-trigger {
+	background-size: 16px 16px;
+	cursor: pointer
+}
+
+#contactsmenu-menu {
+	top: 38px;
+	right: -16px;
+	min-width: 350px;
+
+	div.icon-loading {
+		height: 200px;
+	}
+
+	div.contact {
+		padding: 10px;
+	}
+
+	span.avatar {
+		display: inline-block;
+	}
+}
+
 /* ---- TOOLTIPS ---- */
 
 .extra-data {

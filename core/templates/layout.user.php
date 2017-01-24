@@ -71,14 +71,11 @@
 						autocomplete="off" tabindex="5">
 					<button class="icon-close-white" type="reset"></button>
 				</form>
-				<div id="contactsmenu"
-					 style="position: relative">
+				<div style="position: relative">
 					<div id="contactsmenu-trigger"
-						 class="icon-contacts-dark"
-						 style="background-size: 16px 16px; cursor: pointer"></div>
+						 class="icon-contacts-dark"></div>
 						<div id="contactsmenu-menu"
-							 class="popovermenu bubble menu"
-							 style="right: -16px;top: 38px;min-width: 250px;">
+							 class="popovermenu bubble menu">
 						</div>
 				</div>
 				<div id="settings">

@@ -25,8 +25,8 @@
 (function(OC, $, Handlebars) {
 	'use strict';
 
-	var LOADING_TEMPLATE = '<div class="icon-loading" style="height: 200px"></div>';
-	var CONTACT_TEMPLATE = '<span class="avatar" style="display: inline-block;"></span> {{contact.displayName}}';
+	var LOADING_TEMPLATE = '<div class="icon-loading"></div>';
+	var CONTACT_TEMPLATE = '<span class="avatar"></span> {{contact.displayName}}';
 
 	/**
 	 * @class Contact
@@ -85,9 +85,10 @@
 	 */
 	var ContactsListItemView = OC.Backbone.View.extend({
 
-		/**
-		 * @type {undefined|function}
-		 */
+		/** @type {string} */
+		className: 'contact',
+
+		/** @type {undefined|function} */
 		_template: undefined,
 
 		/** @type {Contact} */
