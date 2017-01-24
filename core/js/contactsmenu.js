@@ -1,9 +1,9 @@
 /* global OC.Backbone, Handlebars */
 
 /**
- * @copyright 2016 Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @copyright 2017 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
- * @author 2016 Christoph Wurst <christoph@winzerhof-wurst.at>
+ * @author 2017 Christoph Wurst <christoph@winzerhof-wurst.at>
  *
  * @license GNU AGPL version 3 or any later version
  *
