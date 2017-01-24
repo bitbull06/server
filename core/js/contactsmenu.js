@@ -1,4 +1,4 @@
-/* global OC.Backbone, Handlebars */
+/* global OC.Backbone, Handlebars, Promise */
 
 /**
  * @copyright 2017 Christoph Wurst <christoph@winzerhof-wurst.at>
@@ -260,27 +260,12 @@
 		},
 
 		_getContats: function() {
-			return new Promise(function(resolve) {
-				setTimeout(function() {
-					resolve(new ContactCollection([
-						{
-							id: 123,
-							displayName: 'Björn Schießle'
-						},
-						{
-							id: 321,
-							displayName: 'Frank Karlitschek'
-						},
-						{
-							id: 345,
-							displayName: 'Jos Poortvliet'
-						},
-						{
-							id: 543,
-							displayName: 'Jan-Christoph Borchardt'
-						}
-					]))
-				}, 1300);
+			var url = OC.generateUrl('/contactsmenu/contacts');
+			return Promise.resolve($.ajax(url, {
+				method: 'GET'
+			})).then(function(data) {
+				// Convert to Backbone collection
+				return new ContactCollection(data);
 			});
 		},
 
@@ -295,6 +280,8 @@
 			self._contactsPromise.then(function(contacts) {
 				console.log('contacts loaded!');
 				self._view.showContacts(contacts);
+			}, function(e) {
+				console.error('could not load contacts', e);
 			});
 		}
 	};
