@@ -24,6 +24,7 @@ namespace OCA\Files_Sharing\Activity\Providers;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
 use OCP\Activity\IProvider;
+use OCP\Federation\ICloudIdManager;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\L10N\IFactory;
@@ -42,6 +43,8 @@ class RemoteShares implements IProvider {
 	/** @var IManager */
 	protected $activityManager;
 
+	protected $cloudIdManager;
+
 	const SUBJECT_REMOTE_SHARE_ACCEPTED = 'remote_share_accepted';
 	const SUBJECT_REMOTE_SHARE_DECLINED = 'remote_share_declined';
 	const SUBJECT_REMOTE_SHARE_RECEIVED = 'remote_share_received';
@@ -51,11 +54,17 @@ class RemoteShares implements IProvider {
 	 * @param IFactory $languageFactory
 	 * @param IURLGenerator $url
 	 * @param IManager $activityManager
+	 * @param ICloudIdManager $cloudIdManager
 	 */
-	public function __construct(IFactory $languageFactory, IURLGenerator $url, IManager $activityManager) {
+	public function __construct(IFactory $languageFactory,
+								IURLGenerator $url,
+								IManager $activityManager,
+								ICloudIdManager $cloudIdManager
+	) {
 		$this->languageFactory = $languageFactory;
 		$this->url = $url;
 		$this->activityManager = $activityManager;
+		$this->cloudIdManager = $cloudIdManager;
 	}
 
 	/**
@@ -167,7 +176,7 @@ class RemoteShares implements IProvider {
 		switch ($subject) {
 			case self::SUBJECT_REMOTE_SHARE_RECEIVED:
 			case self::SUBJECT_REMOTE_SHARE_UNSHARED:
-				$remoteUser = explode('@', $parameters[0], 2);
+				$remoteUser = $this->cloudIdManager->resolveCloudId($parameters[0]);
 				return [
 					'file' => [
 						'type' => 'pending-federated-share',
@@ -176,21 +185,21 @@ class RemoteShares implements IProvider {
 					],
 					'user' => [
 						'type' => 'user',
-						'id' => $remoteUser[0],
+						'id' => $remoteUser->getUser(),
 						'name' => $parameters[0],// Todo display name from contacts
-						'server' => $remoteUser[1],
+						'server' => $remoteUser->getRemote(),
 					],
 				];
 			case self::SUBJECT_REMOTE_SHARE_ACCEPTED:
 			case self::SUBJECT_REMOTE_SHARE_DECLINED:
-				$remoteUser = explode('@', $parameters[0], 2);
+			$remoteUser = $this->cloudIdManager->resolveCloudId($parameters[0]);
 				return [
 					'file' => $this->generateFileParameter($event->getObjectId(), $event->getObjectName()),
 					'user' => [
 						'type' => 'user',
-						'id' => $remoteUser[0],
+						'id' => $remoteUser->getUser(),
 						'name' => $parameters[0],// Todo display name from contacts
-						'server' => $remoteUser[1],
+						'server' => $remoteUser->getRemote(),
 					],
 				];
 		}
